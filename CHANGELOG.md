@@ -1,3 +1,8 @@
+0.1.1
+===
+
+* Correct use of :ember_variant [tdreyno]
+
 0.1.0
 ===
 

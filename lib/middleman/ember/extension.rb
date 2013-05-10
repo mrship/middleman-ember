@@ -12,7 +12,7 @@ module Middleman
 
         app.after_configuration do
           ember_version = 
-            if app.ember_variant == :production
+            if ember_variant == :production
               "prod."
             else
               ""

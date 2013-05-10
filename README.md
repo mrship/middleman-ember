@@ -39,6 +39,20 @@ gem "ember-data-source", "~> 0.0.5"
 
 ```
 
+There are 3 helpers that expose the asset paths of the ember assets used, namely:
+* ember_asset_path
+* handlebars_asset_path
+* ember_local_path
+
+These are useful if you're using the [middleman-jasmine](https://github.com/mrship/middleman-jasmine) gem to allow you to add the ember and handlebars assets to another sprockets instance. e.g.:
+```ruby
+after_configuration do
+  jasmine_sprockets.append_path(ember_asset_path)
+  jasmine_sprockets.append_path(handlebars_asset_path)
+  jasmine_sprockets.prepend_path(ember_local_path) unless ember_local_path.nil?
+end
+```
+
 ## Contributing
 
 1. Fork it

@@ -7,8 +7,14 @@ module Middleman
         app.send :include, InstanceMethods
         app.set  :ember_variant, :development
 
-        @app = app
         app.after_configuration do
+          ember_version = 
+            if app.ember_variant == :production
+              "prod."
+            else
+              ""
+            end
+
           FileUtils.mkdir_p(ember_asset_path)
           FileUtils.cp(::Ember::Source.bundled_path_for("ember.#{ember_version}js"), ember_asset_path.join("ember.js"))
           FileUtils.cp(::Ember::Data::Source.bundled_path_for("ember-data.#{ember_version}js"), ember_asset_path.join("ember-data.js"))
@@ -21,18 +27,12 @@ module Middleman
           sprockets.append_path(handlebars_asset_path)
         end
       end
-
-      private
-
-      def ember_version
-        @app.ember_variant == :production ? "prod." : ""
-      end
       alias :included :registered
     end
 
     module InstanceMethods
       def ember_asset_path
-        Pathname.new(File.join("#{@app.root}/tmp/middleman-ember"))
+        Pathname.new(File.join("#{root}/tmp/middleman-ember"))
       end
 
       def handlebars_asset_path
@@ -40,7 +40,7 @@ module Middleman
       end
 
       def ember_local_path
-        local_path = "#{root}/vendor/assets/ember/#{app.ember_variant}"     
+        local_path = "#{root}/vendor/assets/ember"     
         File.directory?(local_path) ? local_path : nil
       end
     end

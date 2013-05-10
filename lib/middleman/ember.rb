@@ -1,7 +1,9 @@
 require "middleman/ember/version"
+require "middleman/ember/extension"
 
-module Middleman
-  module Ember
-    # Your code goes here...
-  end
+::Middleman::Extensions.register(:ember) do
+  ::Middleman::Ember
 end
+
+
+

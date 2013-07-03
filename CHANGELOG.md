@@ -1,3 +1,8 @@
+0.2.0
+===
+
+* Allow for not using ember-data [mrship]
+
 0.1.1
 ===
 

@@ -30,12 +30,12 @@ configure :build do
 end
 ```
 
-By default, the gem uses handlebars-source, ember-source and ember-data-source for the Ember assets. If you want to have specific gem versions of ember, ember-data or handlebars specify those in your Gemfile, e.g:
+By default, the gem uses handlebars-source and ember-source for the Ember assets. If you want to have specific gem versions of ember or handlebars or to add ember-data specify those in your Gemfile, e.g:
 
 ```ruby
-gem "handlebars-source", "~> 1.0.0.rc3"
-gem "ember-source", "~>1.0.0.rc3"
-gem "ember-data-source", "~> 0.0.5"
+gem "handlebars-source", "~> 1.0.0.rc6"
+gem "ember-source", "~>1.0.0.rc6"
+gem "ember-data-source", "~> 0.13"
 
 ```
 

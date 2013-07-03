@@ -21,7 +21,10 @@ module Middleman
           # copy in the relevant version of Ember
           FileUtils.mkdir_p(ember_asset_path)
           FileUtils.cp("#{@@options.ember_path}/ember.#{ember_version}js", ember_asset_path.join("ember.js"))
-          FileUtils.cp("#{@@options.ember_data_path}/ember-data.#{ember_version}js", ember_asset_path.join("ember-data.js"))
+          # only copy ember_data_path if defined. Allows you to just use Ember.
+          if @@options.ember_data_path
+            FileUtils.cp("#{@@options.ember_data_path}/ember-data.#{ember_version}js", ember_asset_path.join("ember-data.js")) 
+          end
           sprockets.append_path(ember_asset_path)
 
           # add in Handlebars path
@@ -36,9 +39,10 @@ module Middleman
       private
 
       def default_options
+        ember_data_path = defined?(::Ember::Data) ? ::Ember::Data::Source.bundled_path_for("") : nil
         {
           ember_path: ::Ember::Source.bundled_path_for(""),
-          ember_data_path: ::Ember::Data::Source.bundled_path_for(""),
+          ember_data_path: ember_data_path,
           handlebars_path: File.dirname(::Handlebars::Source.bundled_path)
         }
       end

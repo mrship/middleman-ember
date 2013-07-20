@@ -20,7 +20,7 @@ Or install it yourself as:
 
 Add the following code to your `config.rb` file:
 ```ruby
-activate: :ember
+activate :ember
 ```
 
 Set the production variant in your build configuration:

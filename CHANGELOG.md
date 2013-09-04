@@ -1,3 +1,8 @@
+0.2.1
+===
+
+* Require ember dependencies before using them [pwnall]
+
 0.2.0
 ===
 

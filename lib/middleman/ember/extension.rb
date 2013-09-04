@@ -1,5 +1,13 @@
 require 'middleman-core'
 
+require 'ember/source'
+require 'handlebars/source'
+begin
+  require 'ember/data/source'
+rescue LoadError
+  # ember-data was not installed.
+end
+
 module Middleman
   module Ember
     class << self

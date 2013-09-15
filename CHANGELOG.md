@@ -1,3 +1,8 @@
+0.2.2
+===
+
+* Use correct require format for a Middleman extension [mrship]
+
 0.2.1
 ===
 

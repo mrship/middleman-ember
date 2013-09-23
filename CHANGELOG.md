@@ -1,7 +1,12 @@
-0.2.2
+0.2.3
 ===
 
 * Use correct require format for a Middleman extension [mrship]
+
+0.2.2
+===
+
+* YANKED
 
 0.2.1
 ===

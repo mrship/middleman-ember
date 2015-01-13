@@ -19,23 +19,45 @@ module Middleman
         yield @@options if block_given?
 
         app.after_configuration do
-          ember_version = 
-            if ember_variant == :production
-              "prod."
-            else
-              ""
-            end
-
-          # copy in the relevant version of Ember
+          # Create destination directory
           FileUtils.mkdir_p(ember_asset_path)
-          FileUtils.cp("#{@@options.ember_path}/ember.#{ember_version}js", ember_asset_path.join("ember.js"))
-          # only copy ember_data_path if defined. Allows you to just use Ember.
-          if @@options.ember_data_path
-            FileUtils.cp("#{@@options.ember_data_path}/ember-data.#{ember_version}js", ember_asset_path.join("ember-data.js")) 
+
+          # Generate ember source and destination paths
+          ember_source_path = "#{@@options.ember_path}/ember"
+          ember_destination_path = ember_asset_path.join("ember.js")
+
+          # Copy the relevant version of ember
+          if ember_variant == :production
+            FileUtils.cp("#{ember_source_path}.prod.js", ember_destination_path)
+          elsif FileTest.file?("#{ember_source_path}.debug.js")
+            FileUtils.cp("#{ember_source_path}.debug.js", ember_destination_path)
+          else
+            FileUtils.cp("#{ember_source_path}.js", ember_destination_path)
           end
+
+
+          # Only copy ember_data_path if defined. Allows you to just use Ember.
+          if @@options.ember_data_path
+            # Generate ember-data source and destination paths
+            ember_data_source_path = "#{@@options.ember_data_path}/ember-data"
+            ember_data_destination_path = ember_asset_path.join("ember-data.js")
+
+            # Copy the relevant version of ember-data
+            if ember_variant == :production
+              FileUtils.cp("#{ember_data_source_path}.prod.js", ember_data_destination_path)
+            else
+              FileUtils.cp("#{ember_data_source_path}.js", ember_data_destination_path)
+              # Copy ember-data map file if it exists
+              if FileTest.file?("#{ember_data_source_path}.js.map")
+                FileUtils.cp("#{ember_data_source_path}.js.map", ember_asset_path.join("ember-data.js.map"))
+              end
+            end
+          end
+
+          # Register ember path with sprockets
           sprockets.append_path(ember_asset_path)
 
-          # add in Handlebars path
+          # Register handlebars path with sprockets
           sprockets.append_path(handlebars_asset_path)
         end
       end

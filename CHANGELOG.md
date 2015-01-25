@@ -1,3 +1,8 @@
+0.2.4
+===
+
+* Support new ember >=1.10 release file naming [minusfive]
+
 0.2.3
 ===
 
